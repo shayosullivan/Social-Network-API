@@ -19,6 +19,11 @@ const userController = {
         })
         .catch((err) => res.status(500).json(err));
     },
+    addUser(req, res) {
+        User.create(req.body)
+        .then((data) => res.json(data))
+        .catch((err) => res.status(500).json(err));
+    },
     updateUser(req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
