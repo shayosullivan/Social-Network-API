@@ -37,6 +37,36 @@ const thoughtController = {
         })
         .catch((err) => res.status(500).json(err));
     },
+    updateThought(req, res) {
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            req.body
+        )
+        .then((data) => {
+            if(data) {
+                res.json(data);
+            }
+            else {
+                res.status(404).json({ message: "No thought with the id" });
+            }
+        })
+        .catch((err) => res.status(500).json(err));
+    },
+    removeThought(req, res) {
+        Thought.findOneAndDelete(
+            { _id: req.params.thoughtId }
+        )
+        .then((data) => {
+            if(data) {
+                res.json(data);
+            }
+            else {
+                res.status(404).json({ message: "No thought with the id" });
+            }
+        })
+        .catch((err) => res.status(500).json(err));
+    },
+
 }
 
     module.exports = thoughtController;
