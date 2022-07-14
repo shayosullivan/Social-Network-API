@@ -19,6 +19,24 @@ const thoughtController = {
         })
         .catch((err) => res.status(500).json(err));
     },
+    addThought(req, res) {
+        Thought.create(req.body)
+        .then((data) => {
+            return User.findOneAndUpdate(
+                {_id: req.body.userId},
+                {$push: { thoughts: data._id}}
+            );
+        })
+        .then((data) => {
+            if(data) {
+                res.json(data);
+            }
+            else {
+                res.status(404).json({ message: "No user with the id"});
+            }
+        })
+        .catch((err) => res.status(500).json(err));
+    },
 }
 
     module.exports = thoughtController;
