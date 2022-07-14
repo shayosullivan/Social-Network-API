@@ -9,6 +9,12 @@ const thoughtSchema = new Schema(
         minlength: 1,
         maxlength: 280,
       },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (time) => date.format(time, "YYYY/MM/DD at HH:mm:ss"),
+      },
+
       username: {
         type: String,
         required: true,
